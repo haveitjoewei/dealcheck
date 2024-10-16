@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "DealCheck Extension",
+    "version": "1.0",
+    "permissions": [
+        "activeTab", "downloads"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "web_accessible_resources": [
+      {
+        "resources": ["libs/pdf.worker.js", "libs/pdf.js", "content.js"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+}
