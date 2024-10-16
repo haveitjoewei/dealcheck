@@ -1,3 +1,56 @@
+document.getElementById("dealCheckTabBtn").addEventListener("click", function() {
+    document.getElementById("dealcheck-tab").style.display = "block";
+    document.getElementById("tablecloth-tab").style.display = "none";
+    
+    // Update active tab style
+    this.classList.add("active");
+    document.getElementById("tableclothTabBtn").classList.remove("active");
+});
+
+document.getElementById("tableclothTabBtn").addEventListener("click", function() {
+    document.getElementById("dealcheck-tab").style.display = "none";
+    document.getElementById("tablecloth-tab").style.display = "block";
+
+    // Update active tab style
+    this.classList.add("active");
+    document.getElementById("dealCheckTabBtn").classList.remove("active");
+});
+
+// Default to showing the DealCheck tab
+document.getElementById("dealcheck-tab").style.display = "block";
+document.getElementById("tablecloth-tab").style.display = "none";
+
+document.getElementById("calculateBtn").addEventListener("click", function() {
+    const purchasePrice = parseFloat(document.getElementById("purchasePrice").value);
+    const arv = parseFloat(document.getElementById("arv").value);
+    const monthlyRent = parseFloat(document.getElementById("monthlyRent").value);
+    const costOfRepairs = parseFloat(document.getElementById("costOfRepairs").value);
+    const loanAmount = parseFloat(document.getElementById("loanAmount").value);
+    const interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
+    const loanTerm = parseInt(document.getElementById("loanTerm").value);
+
+    // Monthly interest rate
+    const monthlyInterestRate = interestRate / 12;
+    // Number of total payments
+    const numPayments = loanTerm * 12;
+    // Monthly principal & interest (Mortgage payment)
+    const monthlyPI = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numPayments));
+
+    // Tablecloth Cash Flow = Monthly Rent * 0.6 - Monthly PI
+    const cashFlow = (monthlyRent * 0.6) - monthlyPI;
+
+    // 70% Rule = Purchase Price / (ARV - Cost of Repairs) as a percentage
+    const rule70 = (purchasePrice / (arv - costOfRepairs)) * 100;
+
+    // 1% Rule = Monthly Rent / Purchase Price
+    const rule1 = (monthlyRent / purchasePrice) * 100;
+
+    // Update results
+    document.getElementById("cashFlowResult").textContent = "$" + cashFlow.toFixed(2);
+    document.getElementById("rule70Result").textContent = rule70.toFixed(2) + "%";
+    document.getElementById("rule1Result").textContent = rule1.toFixed(2) + "%";
+});
+
 document.getElementById('loadData').addEventListener('click', () => {
   // Query the current tab to get its URL
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

@@ -38,24 +38,96 @@
         border: 1px solid #ccc;
         border-radius: 4px;
       }
+
+      #tablecloth-tab {
+          width: 100%;
+          margin-top: 10px;
+      }
+
+      #results {
+          margin-top: 10px;
+      }
+
+      .tabs {
+          display: flex;
+          cursor: pointer;
+      }
+
+      .tabs button {
+          padding: 10px;
+          border: none;
+          background: #f0f0f0;
+          margin-right: 5px;
+      }
+
+      .tabs button.active {
+          background: #d0d0d0;
+          font-weight: bold;
+      }
+
+      #dealCheckTab, #tableclothTab {
+          margin-top: 10px;
+      }
     </style>
 </head>
 <body>
-    <h3>Property Details</h3>
-    <input type="text" id="street" placeholder="Street">
-    <input type="text" id="city" placeholder="City">
-    <input type="text" id="state" placeholder="State">
-    <input type="text" id="zip" placeholder="Zip Code">
-    
-    <select id="strategy">
-      <option value="rental">Rental</option>
-      <option value="flip">Flip</option>
-      <option value="brrrr">BRRRR</option>
-    </select>
+    <div class="tabs">
+        <button id="dealCheckTabBtn">DealCheck</button>
+        <button id="tableclothTabBtn">Tablecloth Calculations</button>
+    </div>
 
-    <button id="loadData">Load from Page</button>
-    <button id="submitData">Submit to DealCheck</button>
+    <div id="tablecloth-tab">
+        <h3>Tablecloth Calculations</h3>
+        <label for="purchasePrice">Purchase Price:</label>
+        <input type="number" id="purchasePrice" value="0"><br>
+
+        <label for="arv">ARV (After Repair Value):</label>
+        <input type="number" id="arv" value="0"><br>
+
+        <label for="monthlyRent">Monthly Rent:</label>
+        <input type="number" id="monthlyRent" value="0"><br>
+
+        <label for="costOfRepairs">Cost of Repairs (default $50,000):</label>
+        <input type="number" id="costOfRepairs" value="50000"><br>
+
+        <h4>Loan Details</h4>
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" value="0"><br>
+
+        <label for="interestRate">Interest Rate (default 7%):</label>
+        <input type="number" id="interestRate" value="7"><br>
+
+        <label for="loanTerm">Loan Term (Years):</label>
+        <input type="number" id="loanTerm" value="30"><br>
+
+        <button id="calculateBtn">Calculate</button>
+
+        <h4>Results</h4>
+        <div id="results">
+            <p><strong>Tablecloth Cash Flow:</strong> <span id="cashFlowResult"></span></p>
+            <p><strong>70% Rule:</strong> <span id="rule70Result"></span></p>
+            <p><strong>1% Rule:</strong> <span id="rule1Result"></span></p>
+        </div>
+    </div>
+
+    <div id="dealcheck-tab" style="display:none;">
+          <h3>Property Details</h3>
+        <input type="text" id="street" placeholder="Street">
+        <input type="text" id="city" placeholder="City">
+        <input type="text" id="state" placeholder="State">
+        <input type="text" id="zip" placeholder="Zip Code">
+        
+        <select id="strategy">
+          <option value="rental">Rental</option>
+          <option value="flip">Flip</option>
+          <option value="brrrr">BRRRR</option>
+        </select>
+
+        <button id="loadData">Load from Page</button>
+        <button id="submitData">Submit to DealCheck</button>
+    </div>
 
     <script src="popup.js"></script>
+
 </body>
 </html>
